@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static "style.css"%}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .jumbotron{
+        background: rgb(238,174,202);
+        background: -webkit-radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(70,21,149,1) 100%);
+        background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(70,21,149,1) 100%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" align='center'>
+        <div class="jumbotron">
+            <h2>Contact Us</h2>
+            <form role="form" action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button style="background-color:#eeaeca";>Submit</button>
+            </form>
+
+        </div>
+   </div>
+    <footer class="container" align='center'>
+        <p class="float-right btn-link"><a href="/home">Back to top</a></p>
+        <p>© 2020-2021 Ecommerce App , Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+    </footer>
+    
+</body>
+
+</html>

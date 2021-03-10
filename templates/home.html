@@ -1,0 +1,214 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script
+  src="https://code.jquery.com/jquery-3.5.1.js"       
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{% static "style.css"%}">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <style>
+        body {
+            background: rgb(238, 174, 202);
+            background: -webkit-radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(70, 21, 149, 1) 100%);
+        } -->
+        </style>
+    </head>
+    <body >
+        <div class="container" align="center" >
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Ecommerce Appn</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/contact">Contact us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About us</a>
+                      </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        My Cart
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a id="welcome" class="dropdown-item" href="#">Action</a>
+                        
+                    </li>
+                  </ul>
+                  <form class="form-inline my-2 my-lg-0">
+                    <button class="btn btn-primary my-2 my-sm-0" type="submit">Login</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Sign Up</button>
+                  </form>
+                </div>
+              </nav>
+        </div>
+
+        <div class="container" align="center">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <form class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <input  type="search" name="item_name" value="">
+    
+                                </div>
+                                <div class="col">
+                                    <input  type="submit" name="" class="btn btn-primary" value="Search">
+    
+                                </div>
+    
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>    
+        </div>
+
+
+
+     <div class="container" align="center">
+        <div class="row">
+            {% for i in product_list %}
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <img class="card-img-top" src="{{i.image}}" alt="Card image cap">
+                        <div id=nm{{i.id}} class="card-title">
+                            <b>{{i.name}}</b>
+                        </div>
+                        <div class="card-title" id="oprice">
+                             <strike><b>INR.{{i.original_price}}</b></strike>
+                        </div>
+                        <div class="card-title" id="dprice">
+                            <b>INR.{{i.discounted_price}}</b>
+                       </div>
+                           
+                            <button class="btn btn-primary">Buy Now</button>&nbsp;&nbsp;
+                            <button  id={{i.id}} class="btn atc btn-primary">Add To Cart</button>
+                
+
+                    </div>
+                </div>
+
+            
+            </div>
+            {% endfor %}
+        </div>
+     </div>
+        
+        
+    {% block body_block %}
+   
+    {% endblock %}
+     
+    </body>
+
+<script type="text/javascript">
+
+if(localStorage.getItem('cart')==null)
+{
+    var cart={}
+}
+else{
+    cart=JSON.parse(localStorage.getItem('cart'))
+}
+
+
+$(document).on('click','.atc',function()
+{
+    var id=this.id.toString() 
+    console.log(id)
+
+
+if(cart[id]!=undefined)
+{
+    cart[id]=cart[id]+1
+}
+else{
+    cart[id]=1
+}
+console.log(cart)
+
+
+localStorage.setItem('cart',JSON.stringify(cart))
+});
+
+
+myCart(cart)
+
+function myCart(cart)
+{
+   
+    var cartString=""
+    cartString=cartString+"<h6>This is My Cart</h6>"
+
+
+
+    for(var i in cart)   
+    {
+        cartString=cartString+document.getElementById('nm'+i).innerHTML + "Qty:" + cart[i] + "<br>"    
+                            
+    }
+    cartString=cartString+"<a href='/disp' class='btn btn-primary'>Checkout</a>"
+ document.getElementById("welcome").innerHTML=cartString
+
+    
+    
+
+
+
+
+}
+
+
+
+
+
+</script>
+
+
+
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

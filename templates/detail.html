@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        .jumbotron{
+        background: rgb(238,174,202);
+        background: -webkit-radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(70,21,149,1) 100%);
+        }
+        .razorpay-payment-button{
+            background-color:#eeaeca;
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" align="center">
+        <div class="jumbotron" >
+        <!-- filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eeaeca",endColorstr="#152495",GradientType=1);"> -->
+            <h2>Customer Details</h2>
+            <form action="success/" method="post">
+                {{form.as_p}}
+                {% csrf_token %}
+                <script
+                src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="rzp_test_BH0ieRU3OLHvF9" 
+                data-amount="50000" 
+                data-currency="INR"
+                data-buttontext="Pay with Razorpay"
+                data-name="Ecommerce"
+                data-image="https://example.com/your_logo.jpg"
+                data-prefill.name="monika"
+                data-prefill.email="monika16@gmail.com"
+                data-theme.color="#461595"
+            ></script>
+            <input type="hidden" custom="Hidden Element" name="hidden">
+               <!-- <input type="submit" name="" value="Pay with Razorpay">  -->
+            </form>
+        </div>
+    </div>
+   
+
+
+</body>
+</html>
